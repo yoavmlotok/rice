@@ -2,6 +2,9 @@
 A linux rice for an Arch Linux system which uses the sway compositor. \
 Based on the [Catppuccin](https://catppuccin.com) theme.
 
+![usual-preview](previews/usual.png)
+![menu-preview](previews/menu.png)
+
 ## Installation
 Ensure you have the required packages:
 ```
@@ -24,4 +27,4 @@ That's it! Everything should be linked correctly!
 When taking a screenshot the image is saved in the clipboard.
 Make sure to save it as a file before taking another one or you will lose it.
 
-The [waybar configuration](https://github.com/yoavmlotok/rice/blob/main/waybar/config.jsonc) has explanations on interactions possible with the modules.
+The [waybar configuration](waybar/config.jsonc) has explanations on interactions possible with the modules.
