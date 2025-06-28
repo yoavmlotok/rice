@@ -1,0 +1,159 @@
+include catppuccin-mocha
+
+### Variables
+
+# Super key
+set $mod Mod4
+# Movement keys
+set $left h
+set $down j
+set $up k
+set $right l
+# Prefered programs
+set $term kitty
+set $menu wmenu-run
+
+### Output configuration
+
+# Default wallpaper
+output * bg ./bg.png fill
+
+### Idle configuration
+
+# Lock after five minutes,
+# turn off the display after ten minutes,
+# and suspend after fifteen
+exec swayidle -w \
+          timeout 300 'swaylock -f -c 000000' \
+          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          timeout 900 'systemctl suspend' \
+          before-sleep 'swaylock -f -c 000000'
+
+### Input configuration
+
+input type:pointer {
+    natural_scroll enabled
+}
+
+### Key bindings
+
+## Basics:
+
+# Start a terminal
+bindsym $mod+t exec $term
+# Start your launcher
+bindsym $mod+d exec $menu -b -i -f "FiraCodeNerdFontMono 11" -N "$base" -n "$text" -S "$rosewater" -s "$base"
+# Kill focused window
+bindsym $mod+q kill
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+Shift+r reload
+# Exit sway
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway?' -B 'Yes, exit sway' 'swaymsg exit'
+
+## Moving around:
+
+# Focus movement
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+# Current window movement
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+## Workspaces:
+
+# Switch workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+# Switch the current window's workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+
+## Layouts:
+
+# Split horizontaly
+bindsym $mod+b splith
+# Split verticaly
+bindsym $mod+v splitv
+
+# Switch the current window between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current window fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current window's mode between tiling and floating
+bindsym $mod+Shift+space floating toggle
+# Swap focus between the tiling windows and the floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent window
+bindsym $mod+a focus parent
+
+## Resizing containers:
+
+mode "RESIZING" {
+    # left will shrink the containers width
+    bindsym $left resize shrink width 10px
+    # down will grow the containers height
+    bindsym $down resize grow height 10px
+    # up will shrink the containers height
+    bindsym $up resize shrink height 10px
+    # right will grow the containers width
+    bindsym $right resize grow width 10px
+
+    # Return to the default mode
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "RESIZING"
+
+
+## Utilities:
+
+# Special keys to adjust volume via PulseAudio
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+# Special keys to adjust brightness via brightnessctl
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+# Takes a screenshot and saves it into the clipboard
+bindsym Print exec grim - | wl-copy
+
+## Theming:
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+gaps inner 15
+default_border pixel 3
+font pango:FiraCodeNerdFontMono 11
+
+bar swaybar_command waybar
+
+include /etc/sway/config.d/*

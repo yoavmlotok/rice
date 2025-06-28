@@ -1,0 +1,82 @@
+@import "catppuccin-mocha.css";
+
+* {
+    color: @text;
+    font-family: Fira Code Nerd Font, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    border: none;
+    border-radius: 3px;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+window#waybar>* {
+    margin: 15px 7.5px 0px 7.5px;
+}
+
+.module {
+    background: alpha(@base, 1.0);
+    margin-left: 7.5px;
+    margin-right: 7.5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-bottom: 3px solid @lavender;
+}
+
+tooltip {
+    background: alpha(@base, 1.0);
+}
+
+#mode {
+    color: @yellow;
+    border-bottom: 3px solid @yellow;
+}
+
+#workspaces {
+    padding: 0px;
+    border-bottom: none;
+}
+
+#workspaces button>* {
+    color: @subtext0;
+    padding: 0px;
+}
+
+#workspaces button.focused {
+    border-bottom: 3px solid @lavender;
+}
+
+#workspaces button.focused>* {
+    color: @text;
+}
+
+#window {
+    border-bottom: 3px solid @blue;
+}
+
+#pulseaudio {
+    border-bottom: 3px solid @green;
+}
+
+#pulseaudio.muted {
+    border-bottom: 3px solid @red;
+}
+
+#cpu {
+    border-bottom: 3px solid @yellow;
+}
+
+#memory {
+    border-bottom: 3px solid @peach;
+}
+
+#idle_inhibitor,
+#custom-power {
+    padding-right: 13px;
+}
+
+#custom-power>* {
+    all: initial;
+}

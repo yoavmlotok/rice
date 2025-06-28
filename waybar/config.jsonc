@@ -1,0 +1,95 @@
+// -*- mode: jsonc -*-
+{
+    "height": 30,
+    "spacing": 4,
+    "modules-left": [
+        "sway/mode",
+        "sway/workspaces",
+        "sway/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "power-profiles-daemon",
+        "cpu",
+        "memory",
+        "idle_inhibitor",
+        "custom/power"
+    ],
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "General",
+            "2": "Programming",
+            "3": "Social",
+            "4": "Gaming",
+            "5": "Recording"
+        }
+    },
+    "sway/window": {
+        "tooltip": false
+    },
+    // Click to add/remove the date and seconds information.
+    // Hover to display the days of the month.
+    "clock": {
+        "interval": 1,
+        "format-alt": "{:%Y-%m-%d %H:%M:%S}",
+        "tooltip-format": "<tt><big>{calendar}</big></tt>"
+    },
+    // Actions depend on the individual programs.
+    "tray": {
+        "spacing": 15
+    },
+    // Click to launch pavucontrol.
+    // Hover to display the audio device in use.
+    "pulseaudio": {
+        "format": "{volume}% VOL",
+        "format-muted": "MUTED",
+        "on-click": "pavucontrol"
+    },
+    // Click to launch btop.
+    "cpu": {
+        "interval": 1,
+        "format": "{usage}% CPU",
+        "tooltip": false,
+        "on-click": "kitty btop"
+    },
+    // Click to change how usage is displayed between precentage and GiB.
+    // Hover to display the exact memory and swap usage.
+    "memory": {
+        "format": "{}% RAM",
+        "format-alt": "{used}GiB RAM",
+        "tooltip-format": "{used}GiB out of {total}GiB memory used\n{swapUsed}GiB out of {swapTotal}GiB swap used"
+    },
+    // Click to disable/enable idle sleep.
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶",
+            "deactivated": "󰾪"
+        }
+    },
+    // Press to suspend.
+    // Right click for more options.
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "systemctl suspend",
+        "menu": "on-click-right",
+        "menu-file": "$HOME/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "suspend": "systemctl suspend",
+            "shutdown": "shutdown",
+            "reboot": "reboot"
+        }
+    }
+}

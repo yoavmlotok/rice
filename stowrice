@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ..
+stow -v -R -t ~/.config/ rice
